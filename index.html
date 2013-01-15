@@ -1,0 +1,118 @@
+<html>
+	<head>
+		<title>JSnake version 1.0 by Thanh Ky Quan</title>
+
+		<!-- Stylesheet -->
+		<link rel="stylesheet/less" type="text/css" href="css/styles.less"/>
+
+		<!-- Javascript -->
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/less.min.js"></script>
+		<script type="text/javascript" src="js/underscore.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jsnake.optimized.js"></script>
+		<script type="text/javascript">
+			function gameinit(game) {
+				game.generatePrey();
+				$("body").keydown(function(e) {
+					switch (e.keyCode) {
+						// left arrow
+						case 37:
+							game.snake.setDirection(Location.direction.WEST);
+							console.log("Changing direction to the West");
+							break;
+						// right arrow
+						case 39:
+							game.snake.setDirection(Location.direction.EAST);
+							console.log("Changing direction to the East");
+							break;
+						// down arrow
+						case 40:
+							game.snake.setDirection(Location.direction.SOUTH);
+							console.log("Changing direction to the South");
+							break;
+						// up arrow
+						case 38:
+							game.snake.setDirection(Location.direction.NORTH);
+							console.log("Changing direction to the North");
+							break;
+					}
+				});
+			}
+			function gameloop (game) {
+				if (game.snake.canMove()) {
+					if (game.snake.move() == 2) {
+						game.increaseScore();
+						game.preyLocation = null;
+					}
+					if (game.preyLocation == null) {
+						game.generatePrey();
+					}
+					var t1 = new Date().getTime();
+					game.quickDraw();
+					var t2 = new Date().getTime();
+					console.log(t2-t1);
+					//game.board.printMap();
+				}
+				else {
+					game.over();
+					clearInterval(window.intervalCode);
+				}
+			}
+			function gamestart(game) {
+				game.draw();
+				window.intervalCode = setInterval(function() {							
+					gameloop(game);
+				}, game.speed); 
+			}
+
+			function resetMenuBoard() {
+				var gameboard = $('#gameboard');
+				var menuboard = $('#gameover');
+				menuboard.html(gameboard.contents());
+			}
+
+			function exitgame() {
+				self.close();
+			}
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="dashboard">
+				<div id="appname">JSnake</div>
+				<div id="version">version 1.1</div>
+				<div id="author">Thanh Ky Quan</div>
+			</div>
+			<div id="gameboard">
+				
+			</div>
+			<div id="scoreboard">
+				<h2>Score</h2>
+				<span id="score">0</span>
+			</div>
+		</div>
+		<div id="gameover">
+	        <div id="title">Game over</div>
+	        <div class="newgame button">New Game</div> 
+	        <div class="exitgame button">Exit</div>
+	    </div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".newgame").on("click", function() {
+					resetMenuBoard();
+					game = new SnakeGame();
+					gameinit(game);
+					gamestart(game);
+					console.log("new game");
+				});
+				$(".exitgame").on("click", function () { window.close(); });
+				
+				var game = new SnakeGame();
+				gameinit(game);
+				gamestart(game);
+				
+			});
+		</script>
+	</body>
+</html>

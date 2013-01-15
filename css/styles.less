@@ -1,0 +1,124 @@
+@totalCols: 40;
+@totalRows: 20;
+
+@wrapperWidth: 100%;
+@wrapperHeight: 100%;
+
+@dashboardHeight: 150;
+@dashboardWidth: 100%;
+
+@boxWidth: 30px;
+@boxHeight: 30px;
+@boxBorder: 1px;
+
+@gameboardHeight: @boxHeight * @totalRows + @totalRows * 2 * @boxBorder;
+@gameboardWidth: @boxWidth * @totalCols + @totalCols * 2 * @boxBorder;
+
+@boxColor: #FFFFFF;
+
+@snakeColor: #4BA360;
+@snakeHeadColor: #1C4A27;
+@preyColor: #FFBFFB;
+
+body {
+	margin: 0;
+}
+
+div {
+	margin: 0;
+}
+
+#dashboard {
+	float: left;
+	width: @dashboardWidth;
+	height: @dashboardHeight;
+	background-color: #FFAA11;
+	padding-top: 10px;
+	z-index: -1;
+}
+
+#dashboard div {
+	margin-left: 30px;
+}
+
+#version {
+	font-size: 10pt;
+}
+
+#appname {
+	font-size: 24pt;
+	font-weight: bold;
+	display: block;
+}
+
+#author {
+	font-size: 18pt;
+	margin-top: 10px;
+}
+
+
+#scoreboard {
+	position: absolute;
+	left: 90%;
+	top: 1%;
+}
+
+#wrapper {
+	width: @wrapperWidth;
+	height: @wrapperHeight;
+	background-color: #AAAAAA;
+}
+
+
+#gameboard {
+	clear: both;
+	background-color: #E9F0EE;
+	width: @gameboardWidth;
+	height: @gameboardHeight;
+	margin: auto;
+	vertical-align: middle;
+	overflow: hidden;
+	text-align: center;
+}
+.box {
+	width: @boxWidth;
+	height: @boxHeight;
+	background-color: @boxColor;
+	border: 1px black solid;
+	float: left;
+}
+.snake {
+	background-color: @snakeColor;
+}
+
+.snakeHead {
+	background-color: @snakeHeadColor;
+}
+
+.prey {
+	background-color: @preyColor;
+}
+
+#gameover {
+	display: none;
+	text-align: center;
+}
+
+#title {
+	font-size: 36pt;
+}
+
+.button {
+	font-size: 24pt;
+	position: relative;
+	top: 30%;
+	cursor: pointer;
+	margin: 10px;
+	color: #3D89CC;
+	&:link {
+		color: #3D89CC;
+	}
+	&:hover {
+		color: #FFC375;
+	}
+}
